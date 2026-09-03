@@ -15,7 +15,7 @@ const Navbar = () => {
     }
 
     const confirmLogout = () => {
-        apiService.logout()
+        apiService.logOut()
         setShowModal(false)
         navigate("/login")
     }
