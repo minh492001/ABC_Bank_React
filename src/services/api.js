@@ -49,6 +49,69 @@ export const apiService = {
     isAuditor() { // Check if user is an auditor
         return this.hasRole('AUDITOR')
     },
+
+    // Call API from Backend
+    login: (body) => {
+        return api.post('/auth/login', body);
+    },
+    register: (body) => {
+        return api.post('auth/register', body)
+    },
+    forgotPassword: (body) => {
+        return api.post('auth/forgot-password', body)
+    },
+    resetPassword: (body) => {
+        return api.post('auth/reset-password', body)
+    },
+    getMyProfile:() => {
+        return api.get('/users/me')
+    },
+    updatePassword: (oldPassword, newPassword) => {
+        return api.put('/users/update-password', {
+            oldPassword,
+            newPassword
+        })
+    },
+    uploadProfilePicture: (file) => {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        return api.put('/users/profile-picture', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+
+    // Account API
+    getMyAccount: () => {
+        return api.get('/accounts/me')
+    },
+
+    // Transaction API
+    makeTransfer: (transferData) => {
+        return api.post('/transactions', transferData)
+    },
+    getTransactions: (accountNumber, page = 0, size = 10) => {
+        return api.get(`/transactions/${accountNumber}?page=${page}&size=${size}`)
+    },
+
+    // Auditor API
+    getSystemTotals: () => {
+        return api.get('/audit/totals')
+    },
+    findUserByEmail: (email) => {
+        return api.get(`/audit/users?email=${email}`)
+    },
+    findAccountByAccountNumber: (accountNumber) => {
+        return api.get(`/audit/accounts?accountNumber=${accountNumber}`)
+    },
+    getTransactionsByAccountNumber: (accountNumber) => {
+        return api.get(`/audit/transactions/by-account?accountNumber=${accountNumber}`)
+    },
+    getTransactionById: (id) => {
+        return api.get(`/audit/transactions/by-id?id=${id}`)
+    }
 }
 
 export default api
