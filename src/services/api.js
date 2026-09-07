@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = "https://localhost:8090/api";
+const API_BASE_URL = "http://localhost:8090/api";
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -55,13 +55,13 @@ export const apiService = {
         return api.post('/auth/login', body);
     },
     register: (body) => {
-        return api.post('auth/register', body)
+        return api.post('/auth/register', body)
     },
     forgotPassword: (body) => {
-        return api.post('auth/forgot-password', body)
+        return api.post('/auth/forgot-password', body)
     },
     resetPassword: (body) => {
-        return api.post('auth/reset-password', body)
+        return api.post('/auth/reset-password', body)
     },
     getMyProfile:() => {
         return api.get('/users/me')
